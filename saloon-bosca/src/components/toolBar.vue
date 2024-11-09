@@ -1,6 +1,10 @@
 <template>
   <div>
-    <v-toolbar dark prominent>
+    <v-toolbar
+      dark
+      prominent
+      class="my-5"
+    >
       <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
       <router-link to="/">
