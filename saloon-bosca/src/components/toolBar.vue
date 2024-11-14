@@ -13,7 +13,7 @@
 
       <v-spacer></v-spacer>
 
-      <router-link to="employees">
+      <router-link to="/scheduling">
         <v-btn>
           <v-icon class="mr-3">mdi-book-clock-outline</v-icon> Agendar horário
         </v-btn>

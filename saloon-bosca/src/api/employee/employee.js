@@ -16,6 +16,7 @@ const listEmployees = async () => {
         console.log(error);
     }
 }
+
 listEmployees()
 
-export default listEmployees
+export {listEmployees}
