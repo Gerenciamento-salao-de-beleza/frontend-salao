@@ -1,6 +1,6 @@
 <template>
      
-   <v-card>
+   <v-card class="mt-15">
         <h3 class="mb-2 pa-5">Dúvidas frequentes:</h3>
         <v-expansion-panels variant="accordion">
             <v-expansion-panel

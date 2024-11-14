@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-container >
+    <v-container>
         <v-row>
             <v-col class="d-flex pa-2 align-self-center">
                 <h2 class="w-66">O Saloon Boscaa te proporciana uma experiência incrível    !!!</h2>
