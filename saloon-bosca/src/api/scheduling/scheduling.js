@@ -35,7 +35,7 @@ const addScheduling = async (newOne) => {
 
 const editScheduling = async (scheduling) => {
     try {
-        const response = axiosInstance.put(`/agendamentos/${scheduling.id}`, scheduling);
+        const response = await axiosInstance.put(`/agendamentos/${scheduling.id}`, scheduling);
         await listScheduling();
         return response.data;
     } catch (error) {
@@ -45,11 +45,11 @@ const editScheduling = async (scheduling) => {
 
 const deleteScheduling = async (id) => {
     try {
-        const response = axiosInstance.delete(`/agendamentos/${id}`);
+        const response = await axiosInstance.delete(`/agendamentos/${id}`);
         await listScheduling();
         return response.data;
     } catch (error) {
-        console.log('Erro ao editar funcionário: ', error);
+        console.log('Erro ao deletar agendamento: ', error);
     }
 };
 
