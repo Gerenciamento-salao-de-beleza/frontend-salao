@@ -1,5 +1,10 @@
 export const header = [
     {
+        title: 'Id do funcionário',
+        key: 'funcionarioID',
+        visible: false
+    },
+    {
         title: 'Nome do cliente',
         key: 'nomeCliente'
     },
@@ -18,5 +23,13 @@ export const header = [
     {
         title: 'Status',
         key: 'status'
+    },
+    {
+        title: 'Email',
+        key: 'emailCliente'
+    },
+    {
+        title: 'Cpf',
+        key: 'cpfCliente'
     }
 ]

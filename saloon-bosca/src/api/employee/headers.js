@@ -1,5 +1,10 @@
 export const header = [
     {
+        title: 'Id',
+        key: 'id',
+        visible: false
+    },
+    {
         title: 'Nome',
         key: 'nome'
     },

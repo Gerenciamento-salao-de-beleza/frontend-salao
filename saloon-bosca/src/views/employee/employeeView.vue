@@ -59,7 +59,7 @@
 </template>
 
 <script>
-import { listEmployees } from "@/api/employee/employee";
+import { listEmployees, addEmployee, editEmployee, deleteEmployee } from "@/api/employee/employee";
 import { header } from "@/api/employee/headers";
 
 export default {

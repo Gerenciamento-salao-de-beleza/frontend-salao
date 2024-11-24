@@ -1,36 +1,3 @@
-<!-- <template>
-  <div>
-    <v-card
-        class="mx-auto"
-        max-width="800px"
-    >
-      <v-card-title>Agende seu horário</v-card-title>
-
-      <v-divider></v-divider>
-
-      <v-infinite-scroll
-        color="secondary"
-        height="400"
-        mode="manual"
-        @load="load"
-        max-width="800px"
-        
-      >
-        <template v-for="(item, index) in items" :key="index">
-          <div :class="['pa-2', index % 2 === 0 ? 'bg-grey-lighten-2' : '']">
-            <span><b>Nome do cliente: </b></span>{{ item.nomeCliente }} <br />
-            {{ item.telefoneCliente }} <br />
-            {{ item.dataHora }} <br />
-            {{ item.servico }} <br />
-            {{ item.status }} <br />
-            {{ item.telefoneCliente }} <br />
-          </div>
-        </template>
-      </v-infinite-scroll>
-    </v-card>
-  </div>
-</template> -->
-
 <template>
     <div>
       <v-card
@@ -38,7 +5,13 @@
           max-width="800px"
       >
         <v-card-title class="ma-2">Agende seu horário:</v-card-title>
-  
+        <v-btn
+          @click="handleAddScheduling"
+          color="green"
+          icon="mdi-plus"
+          size="small"
+          class="ma-3"
+        ></v-btn>
         <v-divider></v-divider>
 
 
@@ -75,10 +48,34 @@
             ></v-btn>
             <v-btn
                 color="medium-emphasis"
-                icon="mdi-bookmark"
+                icon="mdi-pencil"
+                size="small"
+            ></v-btn>
+            <v-btn
+                color="medium-emphasis"
+                icon="mdi-delete"
                 size="small"
             ></v-btn>
           </v-card-actions>
+
+          <!-- <v-dialog max-width="500px" v-model="addDialog">
+            <v-card>
+              <v-card-title>Novo agendamento</v-card-title>
+              <v-card-text>
+                <v-text-field id="name" label="Nome" clearable></v-text-field>
+                <v-text-field label="Telefone" clearable></v-text-field>
+                <v-text-field label="Data e hora" clearable></v-text-field>
+                <v-text-field label="Serviço" clearable></v-text-field>
+                <v-text-field label="status" clearable></v-text-field>
+                <v-text-field label="Email" clearable></v-text-field>
+                <v-text-field label="Cpf" clearable></v-text-field>
+              </v-card-text>
+              <v-card-actions>
+                <v-btn color="grey-lighten-1" @click="addDialog = false">Cancelar</v-btn>
+                <v-btn color="primary" @click="saveNewScheduling">Salvar</v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog> -->
         </v-card>
 
 
@@ -152,25 +149,79 @@
       
           
         </v-infinite-scroll>
+
+        <v-dialog max-width="500px" v-model="addDialog">
+          
+
+            <v-card>
+
+              <v-card-title>Novo agendamento</v-card-title>
+              <v-card-text>
+                <v-select
+                  v-model="scheduling.funcionarioID"
+                  :items="itemsEmployees"
+                  item-value="id"
+                  item-title="nome"
+                  label="Funcionário"
+                  clearable
+                ></v-select>
+                <v-text-field v-model="scheduling.nomeCliente" label="Nome" clearable></v-text-field>
+                <v-text-field v-model="scheduling.telefoneCliente"  label="Telefone" clearable></v-text-field>
+                <v-text-field v-model="scheduling.dataHora"  label="Data e hora" clearable></v-text-field>
+                <v-text-field  v-model="scheduling.servico" label="Serviço" clearable></v-text-field>
+                <v-text-field v-model="scheduling.status"  label="status" clearable></v-text-field>
+                <v-text-field  v-model="scheduling.emailCliente" label="Email" clearable></v-text-field>
+                <v-text-field  v-model="scheduling.cpfCliente" label="Cpf" clearable></v-text-field>
+              </v-card-text>
+              <v-card-actions>
+                <v-btn color="grey-lighten-1" @click="addDialog = false">Cancelar</v-btn>
+                <v-btn color="primary" @click="saveNewScheduling">Salvar</v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
       </v-card>
     </div>
   </template>
 
 <script>
-import { listScheduling } from "@/api/scheduling/scheduling";
+import { listScheduling, addScheduling, editScheduling, deleteScheduling } from "@/api/scheduling/scheduling";
 import { header } from "@/api/scheduling/headers";
+import { getItemsEmployee } from '@/api/employee/employee'
 
 export default {
   data() {
     return {
       header,
       items: [],
+      scheduling: {},
+      itemsEmployees: [],
+      addDialog: false,
     };
   },
 
   async mounted() {
-    this.items = await listScheduling();
+    const schedulings = await listScheduling();
+    this.items = schedulings;
+
+    const itemEmployee = await getItemsEmployee();
+    this.itemsEmployees = itemEmployee;
   },
+
+  methods: {
+    handleAddScheduling () {
+      this.scheduling = {};
+      this.addDialog = true;
+    },
+
+    async saveNewScheduling(){
+      console.log('seus dados: ', this.scheduling);
+      
+      await addScheduling(this.scheduling);
+      this.addDialog = false;
+      this.items = await listScheduling();
+      alert('Seu agendamento foi requisitado')
+    }
+  }
 };
 </script>
 

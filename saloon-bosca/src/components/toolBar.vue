@@ -15,7 +15,7 @@
 
       <router-link to="/scheduling">
         <v-btn>
-          <v-icon class="mr-3">mdi-book-clock-outline</v-icon> Agendar horário
+          <v-icon class="mr-3">mdi-book-clock-outline</v-icon>Agenda
         </v-btn>
       </router-link>
     </v-toolbar>
