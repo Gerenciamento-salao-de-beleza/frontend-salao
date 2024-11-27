@@ -1,21 +1,3 @@
-<!-- <template>
-  <div>
-    
-      <v-infinite-scroll
-        color="secondary"
-        height="400"
-        mode="manual"
-        @load="load"
-      >
-        <template v-for="(item, index) in items" :key="index">
-          <div :class="['pa-2', index % 2 === 0 ? 'bg-grey-lighten-2' : '']">
-            Item #{{ item }}
-          </div>
-        </template>
-      </v-infinite-scroll>
-  </div>
-</template> -->
-
 <template>
   <div>
     <v-card class="mx-auto" max-width="800px">
@@ -23,12 +5,7 @@
 
       <v-divider></v-divider>
 
-      <v-infinite-scroll
-        color="secondary"
-        height="auto"
-        mode="manual"
-        @load="load"
-      >
+      <v-container>
         <v-card v-for="(item, index) in items" :key="index" class="my-1">
           <v-card-text>
             <v-row>
@@ -53,13 +30,18 @@
             ></v-btn>
           </v-card-actions>
         </v-card>
-      </v-infinite-scroll>
+      </v-container>
     </v-card>
   </div>
 </template>
 
 <script>
-import { listEmployees, addEmployee, editEmployee, deleteEmployee } from "@/api/employee/employee";
+import {
+  listEmployees,
+  addEmployee,
+  editEmployee,
+  deleteEmployee,
+} from "@/api/employee/employee";
 import { header } from "@/api/employee/headers";
 
 export default {
@@ -73,22 +55,15 @@ export default {
   async mounted() {
     this.items = await listEmployees();
   },
-
-  methods: {
-    async load() {
-      const newItems = await listEmployees();
-      this.items.push(...newItems);
-    },
-  },
 };
 </script>
 
 <style>
-    .v-card .v-card-text {
-        line-height: 0.1;
-    }
+.v-card .v-card-text {
+  line-height: 0.1;
+}
 
-    .v-card {
-        height: auto;
-    }
+.v-card {
+  height: auto;
+}
 </style>
